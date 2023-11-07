@@ -18,6 +18,29 @@ module.exports = function (context) {
         path  = context.requireCordovaModule("path");
     }
 
+    //mlrosa - Identify AppId, need this code to place the dynatrace config in the Environment folder. We have 4 Environments
+    function getAppId(context) {
+      var cordovaAbove8 = isCordovaAbove(context, 8);
+      var et;
+      if (cordovaAbove8) {
+        et = require('elementtree');
+      } else {
+        et = context.requireCordovaModule('elementtree');
+      }
+
+      var config_xml = path.join(context.opts.projectRoot, 'config.xml');
+      var data = fs.readFileSync(config_xml).toString();
+      var etree = et.parse(data);
+      return etree.getroot().attrib.id;
+    }
+
+    function isCordovaAbove(context, version) {
+      var cordovaVersion = context.opts.cordova.version;
+      console.log(cordovaVersion);
+      var sp = cordovaVersion.split('.');
+      return parseInt(sp[0]) >= version;
+    }
+    
     var appId = getAppId(context); 
     var wwwPath = path.join(context.opts.projectRoot,"www");
     var configPath = path.join(wwwPath, "dynatraceConfig/" + appId);

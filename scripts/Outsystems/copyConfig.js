@@ -46,6 +46,7 @@ module.exports = function (context) {
     var configPath = path.join(wwwPath, "dynatraceConfig/" + appId);
     files = fs.readdirSync(configPath);
     if(files.length >0){
+        console.log('batata ' + appId, + ' ' + configPath);
         copyFolderRecursiveSync(configPath, path.join(context.opts.projectRoot));
         deferral.resolve();
     }else{

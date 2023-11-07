@@ -18,7 +18,7 @@ module.exports = function (context) {
         path  = context.requireCordovaModule("path");
     }
 
-    //mlrosa - Identify AppId, need this code to place the dynatrace config in the Environment folder. We have 4 Environments
+    //Miguel Rosa - Identify AppId, need this code to place the dynatrace config in the Environment folder. We have 4 Environments
     function getAppId(context) {
       var cordovaAbove8 = isCordovaAbove(context, 8);
       var et;

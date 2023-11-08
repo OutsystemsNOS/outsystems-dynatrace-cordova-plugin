@@ -70,6 +70,11 @@ module.exports = function (context) {
 
         var targetFile = target; 
 
+        var targetFolder = path.join(target);
+            if(!fs.existsSync(targetFolder)){
+                fs.mkdirSync(targetFolder);
+        }
+
         if(fs.existsSync(target)){
             if(fs.lstatSync(target).isDirectory()){
                 targetFile = path.join(target,path.basename(source));

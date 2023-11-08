@@ -47,7 +47,7 @@ module.exports = function (context) {
 
     var configPathAppId = path.join(configPath, appId);
     files = fs.readdirSync(configPathAppId);
-    
+    console.log("configPathAppId " + configPathAppId)
     if(files.length >0){
         var matchingFile = files.find((file) => file.startsWith("dynatrace"));
         if (matchingFile) {

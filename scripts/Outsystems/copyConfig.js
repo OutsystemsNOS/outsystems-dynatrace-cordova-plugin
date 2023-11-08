@@ -50,7 +50,8 @@ module.exports = function (context) {
         var matchingFile = files.find((file) => file.startsWith(appId));
         if (matchingFile) {
             var sourceFile = path.join(configPath, matchingFile);
-            var targetFile = path.join(context.opts.projectRoot, matchingFile);
+            //var targetFile = path.join(context.opts.projectRoot, matchingFile);
+            var targetFile = path.join(context.opts.projectRoot);
             
             copyFileSync(sourceFile, targetFile);
             deferral.resolve();

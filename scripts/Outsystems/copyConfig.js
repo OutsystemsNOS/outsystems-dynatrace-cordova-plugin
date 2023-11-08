@@ -47,7 +47,8 @@ module.exports = function (context) {
     files = fs.readdirSync(configPath);
     
     if(files.length >0){
-        var matchingFile = files.find((file) => file.startsWith(appId));
+        //var matchingFile = files.find((file) => file.startsWith(appId));
+        var matchingFile = files.find((file) => file.startsWith("dynatrace.config"));
         if (matchingFile) {
             var sourceFile = path.join(configPath, matchingFile);
             var targetFile = path.join(context.opts.projectRoot, matchingFile);

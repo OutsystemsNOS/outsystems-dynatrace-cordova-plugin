@@ -43,14 +43,15 @@ module.exports = function (context) {
     
     var appId = getAppId(context); 
     var wwwPath = path.join(context.opts.projectRoot,"www");
-    var configPath = path.join(wwwPath, "dynatraceConfig/" + appId);
-    files = fs.readdirSync(configPath);
+    var configPath = path.join(wwwPath, "dynatraceConfig");
+
+    var configPathAppId = path.join(configPath, appId);
+    files = fs.readdirSync(configPathAppId);
     
     if(files.length >0){
-        //var matchingFile = files.find((file) => file.startsWith(appId));
-        var matchingFile = files.find((file) => file.startsWith("dynatrace.config"));
+        var matchingFile = files.find((file) => file.startsWith("dynatrace"));
         if (matchingFile) {
-            var sourceFile = path.join(configPath, matchingFile);
+            var sourceFile = path.join(configPathAppId, matchingFile);
             var targetFile = path.join(context.opts.projectRoot, matchingFile);
             
             copyFileSync(sourceFile, targetFile);

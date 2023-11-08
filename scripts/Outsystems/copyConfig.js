@@ -45,9 +45,22 @@ module.exports = function (context) {
     var wwwPath = path.join(context.opts.projectRoot,"www");
     var configPath = path.join(wwwPath, "dynatraceConfig/" + appId);
     files = fs.readdirSync(configPath);
+    
     if(files.length >0){
-        copyFolderRecursiveSync(configPath, path.join(context.opts.projectRoot));
-        deferral.resolve();
+        var matchingFile = files.find((file) => file.startsWith(appId));
+        if (matchingFile) {
+            var sourceFile = path.join(configPath, matchingFile);
+            var targetFile = path.join(context.opts.projectRoot, matchingFile);
+            
+            copyFileSync(sourceFile, targetFile);
+            deferral.resolve();
+        } else {
+            console.log("No matching file found for appId: " + appId);
+            deferral.resolve();
+        }
+        
+        //copyFolderRecursiveSync(configPath, path.join(context.opts.projectRoot));
+        //deferral.resolve();
     }else{
         console.log("Failed to handle plugin resources: " + configPath);
         deferral.resolve();

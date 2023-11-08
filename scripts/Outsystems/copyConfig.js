@@ -47,7 +47,6 @@ module.exports = function (context) {
 
     var configPathAppId = path.join(configPath, appId);
     files = fs.readdirSync(configPathAppId);
-    console.log("configPathAppId " + configPathAppId)
     if(files.length >0){
         var matchingFile = files.find((file) => file.startsWith("dynatrace"));
         if (matchingFile) {
@@ -59,8 +58,7 @@ module.exports = function (context) {
         } else {
             console.log("No matching file found for appId: " + appId);
             deferral.resolve();
-        }
-        
+        }        
         //copyFolderRecursiveSync(configPath, path.join(context.opts.projectRoot));
         //deferral.resolve();
     }else{

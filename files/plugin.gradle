@@ -1,3 +1,4 @@
 dependencies {
-	classpath 'com.dynatrace.tools.android:gradle-plugin:8.259.1.1008'
+	//classpath 'com.dynatrace.tools.android:gradle-plugin:8.259.1.1008'
+	classpath 'com.dynatrace.tools.android:gradle-plugin:8.279.1.1002' //Upgrade version to compile with Outsystems MABS 10
 }

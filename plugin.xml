@@ -49,16 +49,16 @@
 	<platform name="android">
         <!--<framework src="com.dynatrace.agent:agent-android:8.259.1.1008" />-->
 	<framework src="com.dynatrace.agent:agent-android:8.265.1.1002" />
-		<source-file src="other/DynatraceCordovaPlugin.java" target-dir="src/com/dynatrace/cordova/plugin" />
-	
-		<config-file target="config.xml" parent="/*">
-		<feature name="DynatraceCordovaPlugin">
-			<param name="android-package" value="com.dynatrace.cordova.plugin.DynatraceCordovaPlugin" />
-		</feature>
-		<!--MABS 10-->
-		<preference name="android-minSdkVersion" value="28"/> 
-		</config-file>
-	</platform>
-	<platform name="windows">
-	</platform>
+	<source-file src="other/DynatraceCordovaPlugin.java" target-dir="src/com/dynatrace/cordova/plugin" />
+
+	<config-file target="config.xml" parent="/*">
+	<feature name="DynatraceCordovaPlugin">
+		<param name="android-package" value="com.dynatrace.cordova.plugin.DynatraceCordovaPlugin" />
+	</feature>
+	<!--MABS 10-->
+	<preference name="android-minSdkVersion" value="28"/> 
+	</config-file>
+    </platform>
+    <platform name="windows">
+    </platform>
 </plugin>

@@ -55,8 +55,6 @@
 	<feature name="DynatraceCordovaPlugin">
 		<param name="android-package" value="com.dynatrace.cordova.plugin.DynatraceCordovaPlugin" />
 	</feature>
-	<!--MABS 10-->
-	<preference name="android-minSdkVersion" value="28"/> 
 	</config-file>
     </platform>
     <platform name="windows">

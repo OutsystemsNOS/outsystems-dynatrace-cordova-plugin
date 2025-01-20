@@ -19,11 +19,38 @@ try {
         if ((cookieDesc_1 === null || cookieDesc_1 === void 0 ? void 0 : cookieDesc_1.configurable) === true) {
             Object.defineProperty(document, 'cookie', {
                 get: function () {
-                    var cookies = cookieDesc_1.get.call(document);
-                    return patchCookies(cookies);
+                    if (typeof window.Capacitor !== 'undefined') {
+                        if (window.Capacitor.platform === 'ios') {
+                            var payload = {
+                                type: 'CapacitorCookies.get',
+                            };
+                            var res = prompt(JSON.stringify(payload));
+                            return patchCookies(res);
+                        }
+                    }
+                    return patchCookies(cookieDesc_1.get.call(document));
                 },
                 set: function (val) {
-                    cookieDesc_1.set.call(document, val);
+                    if (typeof window.Capacitor !== 'undefined') {
+                        var cookiePairs = val.split(';');
+                        var domainSection = val.toLowerCase().split('domain=')[1];
+                        var domain = cookiePairs.length > 1 &&
+                            domainSection != null &&
+                            domainSection.length > 0
+                            ? domainSection.split(';')[0].trim()
+                            : '';
+                        if (window.Capacitor.platform === 'ios') {
+                            var payload = {
+                                type: 'CapacitorCookies.set',
+                                action: val,
+                                domain: domain,
+                            };
+                            prompt(JSON.stringify(payload));
+                        }
+                        else if (typeof window.CapacitorCookiesAndroidInterface !== 'undefined') {
+                            window.CapacitorCookiesAndroidInterface.setCookie(domain, val);
+                        }
+                    }
                     setCookie(val);
                 },
             });
@@ -31,7 +58,7 @@ try {
     }
 }
 catch (e) {
-    console.warn('[DYNATRACE]: Unable to setup the cookie proxy!\n' + e);
+    console.warn('[DYNATRACE]: Unable to setup the capacitor cookie proxy!\n' + e);
 }
 var setCookie = function (value) {
     if (value !== undefined) {
